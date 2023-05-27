@@ -27,7 +27,6 @@ var diffIdents : Boolean
 var Ids: ISet
 var translation : GHashTableMap()
 
-
 chars(string) :=  {string.charAt(i)| 0 <= i <string.length() }
 
 charsStrings(strings) := (∪ s | s ∈ strings: chars(s) )
@@ -49,7 +48,6 @@ function runLexer(M, input) begin
  end
  
  function problems(q: String) begin
-    
     if q in allSymbols then return false
     elseif |q|≤1  then return true
     else
@@ -57,12 +55,10 @@ function runLexer(M, input) begin
          if not problems(s) and not problems(t) then return false end
        end
        return true
-	end
-   	
+	end	
  end
  
- 
- 	function translationPreOps(state) begin
+ function translationPreOps(state) begin
  	 var x, y
  	 var q: String
  	 q:= state
@@ -79,15 +75,11 @@ function runLexer(M, input) begin
           	if x≠ λ  and  y≠λ then 
             return x+y end
         end
-        
  	    return   λ
- 	     
    end
-
  end
  
 function createLexer():ITransducer begin
-	
 	initialize()
 	
 	preOps := allPrefixes(allSymbols)
@@ -113,8 +105,6 @@ function createLexer():ITransducer begin
 end
 
 function δ(state,σ) begin
-  
- 
    var q: String
    q := state
    
@@ -149,9 +139,6 @@ function δ(state,σ) begin
     else return "Err"
 end	
 end 
-
- 
-
 
 function g(q) begin
 	return λ
@@ -204,25 +191,19 @@ function h(q,σ) begin
     else 
     	 currentString := currentString + s
     	return  λ
-
 end
 end
 
 // **************  This is the only  procedure you have to change for your lexer 
  
  procedure initialize() begin
- 
- 	skipChars := {' ', '\t', '\n'}
+	skipChars := {' ', '\t', '\n'}
 	alphaUpper := ('A'‥'Z')
-   alphaLower := ('a' ‥ 'z') 
-   digits :=  ('0'‥'9')
+	alphaLower := ('a' ‥ 'z') 
+	digits :=  ('0'‥'9')
 	alphaNum := alphaUpper ∪ alphaLower ∪ digits  ∪ {'-'}      // Alphanumeric characters
-
 	keyWords := {"moveToThe","right","face","north"}  // keywords  y the language is not case sensitive use only ;oercase letters:
 	allSymbols := { ":", "," }  // Symbols  and brackets, both single char and  multicharacter
-	
-	
-	
 	
 	// TRANSLATION FOR ALL STRINGS IN KEYWORDS
 	
@@ -230,20 +211,19 @@ end
 	
 	// translation.put("\n",'@')  only use this if \n is part of the language and is not skipped @ must not be used for any other translation 
 	 
-	  translation.put("move",'m')
+	translation.put("move",'m')
 	
-	 translation.put("moveToThe",'M')
+	translation.put("moveToThe",'M')
 	translation.put("right",'r')
 
-	 translation.put("face",'f')
+	translation.put("face",'f')
 	translation.put("north",'n')
 	translation.put("IdL",'v')  
 	translation.put("IdU",'v')  //if  there is no difference between names that start with caps and those that don't,
 	    							//assign the same translation
 	 
-	 translation.put("Num",'#')
+	translation.put("Num",'#')
 	 // **************
-	 
 end
 
 

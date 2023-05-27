@@ -1,31 +1,23 @@
 using gold.**
 
-
- 
 chars(string) :=  {string.charAt(i)| 0 <= i <string.length() }
 charsStrings(strings) := (∪ s | s ∈ strings: chars(s) )
 elements(array) :=  {array[i]| 0 <= i < |array| }
 get1(⟨r,i⟩):= r
 get2(⟨r,i⟩):= i
   
-   
 var lexer:GDeterministicTransducer
 var parser:GPushdownAutomaton
 
 procedure main(args:String[]) begin
     currentString := λ
-    
     lexer = Lexer202310.createLexer()
-  
     parser = ParserRobot202310.createParser(lexer.getOutputAlphabet())
 	 
-	 
-	 //testLexer(lexer)
-	 //GAutomataFrame.show(parser)
+	//testLexer(lexer)
+	//GAutomataFrame.show(parser)
    
-	 
-	 
-	 testLexerParser(lexer,parser)
+	testLexerParser(lexer,parser)
 end
   
   
@@ -78,12 +70,6 @@ print  "Good bye"
 print  ""
 
 end 
-
-
-  
- 
-
-
 
 procedure testLexerParser(M:ITransducer, P:IPushdownAutomaton) begin
 	var sc:java.util.Scanner(System.$in)
