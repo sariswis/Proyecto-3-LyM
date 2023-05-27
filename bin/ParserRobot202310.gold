@@ -1,0 +1,47 @@
+using gold.**
+
+toSet(C) :=  {x|  x in C}
+
+///====   mini Parser===
+
+function createParser(A):IPushdownAutomaton begin
+	Q:=(0‥8
+	)
+	Σ:=toSet(A)  ∪ {' ', '\n'}
+	
+	Γ:={'1'}
+	q₀:=0
+	F:= {0}
+	M:=GPushdownAutomaton(Q,Σ,Γ,q₀,F)
+SkipChars := {' ', '\n'}   // this will only  be used when testing only the parser as the lexer removes  SkipChars
+	
+// transitions for  moveToThe:  var, right 
+
+M.delta(0,1,'M').ignore()
+M.delta(1,2,':').ignore()
+M.delta(2,3,'v').ignore()
+M.delta(3,4,',').ignore()
+M.delta(4,0,'r').ignore()
+ 
+ // transitions for  move:  number
+M.delta(0,5,'m').ignore()
+M.delta(5,6,':').ignore()
+M.delta(6,0,'#').ignore()
+
+// transitions for  face:  north
+ 
+M.delta(0,7,'f').ignore()
+M.delta(7,8,':').ignore()
+M.delta(8,0,'n').ignore() 
+
+
+ for each q in Q do
+ 	for each s in SkipChars do
+ 	   M.delta(q,q,λ+s).ignore()
+ end
+ end
+
+
+return M
+end
+
