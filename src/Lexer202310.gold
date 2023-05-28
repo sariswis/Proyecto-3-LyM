@@ -84,7 +84,7 @@ function createLexer():ITransducer begin
 	
 	preOps := allPrefixes(allSymbols)
  	preKW  := allPrefixes(keyWords)
-   StartOps := (∪ x | x ∈ allSymbols: {x.charAt(0)} ) 
+	StartOps := (∪ x | x ∈ allSymbols: {x.charAt(0)} ) 
 	Symbols1 := ((∪ x | x ∈ StartOps: {""+x} ) ∩ allSymbols) // \ {"\n"}  add this if \n  is a token 
 	CharsSymbols1 := (∪ x | x ∈ Symbols1: {x.charAt(0)} )
 	Out   := 	CharsSymbols1 ∪ (∪ x | x ∈ translation.values(): {x} )
@@ -101,7 +101,7 @@ function createLexer():ITransducer begin
 	 
 	q₀:="INIT"
 	F:= {"INIT"}
-	return 	GDeterministicTransducer(Q,Σ,Out,q₀,F,δ,g,h)
+	return GDeterministicTransducer(Q,Σ,Out,q₀,F,δ,g,h)
 end
 
 function δ(state,σ) begin
@@ -197,13 +197,16 @@ end
 // **************  This is the only  procedure you have to change for your lexer 
  
  procedure initialize() begin
-	skipChars := {' ', '\t', '\n'}
+	skipChars := {' ', '\r', '\t', '\n', '\f'}
 	alphaUpper := ('A'‥'Z')
 	alphaLower := ('a' ‥ 'z') 
 	digits :=  ('0'‥'9')
-	alphaNum := alphaUpper ∪ alphaLower ∪ digits  ∪ {'-'}      // Alphanumeric characters
-	keyWords := {"moveToThe","right","face","north"}  // keywords  y the language is not case sensitive use only ;oercase letters:
-	allSymbols := { ":", "," }  // Symbols  and brackets, both single char and  multicharacter
+	alphaNum := alphaUpper ∪ alphaLower ∪ digits // Alphanumeric characters
+	keyWords := {"ROBOT_R", "VARS", "PROCS", "assignTo", "goTo", "move", "turn", "face", "put", "pick", "moveToThe",
+			"moveInDir", "jumpToThe", "jumpInDir", "nop", "if", "then", "else", "while", "do", "repeat", "facing",
+			"canPut", "canPick", "canMoveInDir", "canJumpInDir", "canMoveToThe", "canJumpToThe", "not", "left", 
+			"right", "around", "north", "south", "east", "west", "balloons", "chips", "front", "back"}  // keywords  y the language is not case sensitive use only ;oercase letters:
+	allSymbols := {'[', ']', ',', ':', ';', '|'}  // Symbols  and brackets, both single char and  multicharacter
 	
 	// TRANSLATION FOR ALL STRINGS IN KEYWORDS
 	
@@ -211,17 +214,58 @@ end
 	
 	// translation.put("\n",'@')  only use this if \n is part of the language and is not skipped @ must not be used for any other translation 
 	 
-	translation.put("move",'m')
+	// Keywords
+	translation.put("ROBOT_R",'R')
+	translation.put("VARS",'V')
+	translation.put("PROCS",'P')
 	
-	translation.put("moveToThe",'M')
-	translation.put("right",'r')
-
+	// Commands
+	translation.put("assignTo",'a')
+	translation.put("goTo",'g')
+	translation.put("move",'m')
+	translation.put("turn",'t')
 	translation.put("face",'f')
-	translation.put("north",'n')
+	translation.put("put",'p')
+	translation.put("pick",'i')
+	translation.put("moveToThe",'o')
+	translation.put("moveInDir",'b')
+	translation.put("jumpToThe",'j')
+	translation.put("jumpInDir",'d')
+	translation.put("nop",'n')
+	
+	// Control Structures
+	translation.put("if",'I')
+	translation.put("then",'T')
+	translation.put("else",'E')
+	translation.put("while",'W')
+	translation.put("do",'D')
+	translation.put("repeat",'A')
+	
+	// Conditions
+	translation.put("facing",'c')
+	translation.put("canPut",'u')
+	translation.put("canPick",'k')	
+	translation.put("canMoveInDir",'e')
+	translation.put("canJumpInDir",'r')
+	translation.put("canMoveToThe",'h')		
+	translation.put("canJumpToThe",'l')
+	translation.put("not",'!')
+	
+	// Variables
+	translation.put("left",'L')	
+	translation.put("right",'L')
+	translation.put("around",'U')
+	translation.put("north",'O')
+	translation.put("south",'O')		
+	translation.put("east",'O')
+	translation.put("west",'O')
+	translation.put("balloons",'X')	
+	translation.put("chips",'X')
+	translation.put("front",'C')
+	translation.put("back",'C')		
+	
 	translation.put("IdL",'v')  
-	translation.put("IdU",'v')  //if  there is no difference between names that start with caps and those that don't,
-	    							//assign the same translation
-	 
+	translation.put("IdU",'v')
 	translation.put("Num",'#')
 	 // **************
 end
