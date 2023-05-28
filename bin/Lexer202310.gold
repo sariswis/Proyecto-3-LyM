@@ -201,7 +201,7 @@ end
 	alphaUpper := ('A'‥'Z')
 	alphaLower := ('a' ‥ 'z') 
 	digits :=  ('0'‥'9')
-	alphaNum := alphaUpper ∪ alphaLower ∪ digits // Alphanumeric characters
+	alphaNum := alphaUpper ∪ alphaLower ∪ digits ∪ {'-'} // Alphanumeric characters
 	keyWords := {"ROBOT_R", "VARS", "PROCS", "assignTo", "goTo", "move", "turn", "face", "put", "pick", "moveToThe",
 			"moveInDir", "jumpToThe", "jumpInDir", "nop", "if", "then", "else", "while", "do", "repeat", "facing",
 			"canPut", "canPick", "canMoveInDir", "canJumpInDir", "canMoveToThe", "canJumpToThe", "not", "left", 

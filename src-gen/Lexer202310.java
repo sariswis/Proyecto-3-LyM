@@ -948,7 +948,7 @@ public final class Lexer202310 {
       $line=203;
       digits=$cast(ISet.class,$fix($opIntvlY('0','9')));
       $line=204;
-      alphaNum=$cast(ISet.class,$fix($opUnionY($opUnionY(alphaUpper,alphaLower),digits)));
+      alphaNum=$cast(ISet.class,$fix($opUnionY($opUnionY($opUnionY(alphaUpper,alphaLower),digits),GCollections.asSet('-'))));
       $line=205;
       keyWords=$cast(ISet.class,$fix(GCollections.asSet("ROBOT_R","VARS","PROCS","assignTo","goTo","move","turn","face","put","pick","moveToThe","moveInDir","jumpToThe","jumpInDir","nop","if","then","else","while","do","repeat","facing","canPut","canPick","canMoveInDir","canJumpInDir","canMoveToThe","canJumpToThe","not","left","right","around","north","south","east","west","balloons","chips","front","back")));
       $line=209;
