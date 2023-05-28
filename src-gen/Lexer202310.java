@@ -952,7 +952,7 @@ public final class Lexer202310 {
       $line=205;
       keyWords=$cast(ISet.class,$fix(GCollections.asSet("ROBOT_R","VARS","PROCS","assignTo","goTo","move","turn","face","put","pick","moveToThe","moveInDir","jumpToThe","jumpInDir","nop","if","then","else","while","do","repeat","facing","canPut","canPick","canMoveInDir","canJumpInDir","canMoveToThe","canJumpToThe","not","left","right","around","north","south","east","west","balloons","chips","front","back")));
       $line=209;
-      allSymbols=$cast(ISet.class,$fix(GCollections.asSet('[',']',',',':',';','|')));
+      allSymbols=$cast(ISet.class,$fix(GCollections.asSet("[","]",",",":",";","|")));
       $line=218;
       ((gold.structures.map.GHashTableMap)translation).put("ROBOT_R",'R');
       $line=219;

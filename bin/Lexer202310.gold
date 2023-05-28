@@ -84,7 +84,7 @@ function createLexer():ITransducer begin
 	
 	preOps := allPrefixes(allSymbols)
  	preKW  := allPrefixes(keyWords)
-	StartOps := (∪ x | x ∈ allSymbols: {x.charAt(0)} ) 
+   StartOps := (∪ x | x ∈ allSymbols: {x.charAt(0)} ) 
 	Symbols1 := ((∪ x | x ∈ StartOps: {""+x} ) ∩ allSymbols) // \ {"\n"}  add this if \n  is a token 
 	CharsSymbols1 := (∪ x | x ∈ Symbols1: {x.charAt(0)} )
 	Out   := 	CharsSymbols1 ∪ (∪ x | x ∈ translation.values(): {x} )
@@ -197,7 +197,7 @@ end
 // **************  This is the only  procedure you have to change for your lexer 
  
  procedure initialize() begin
-	skipChars := {' ', '\r', '\t', '\n', '\f'}
+skipChars := {' ', '\r', '\t', '\n', '\f'}
 	alphaUpper := ('A'‥'Z')
 	alphaLower := ('a' ‥ 'z') 
 	digits :=  ('0'‥'9')
@@ -206,7 +206,7 @@ end
 			"moveInDir", "jumpToThe", "jumpInDir", "nop", "if", "then", "else", "while", "do", "repeat", "facing",
 			"canPut", "canPick", "canMoveInDir", "canJumpInDir", "canMoveToThe", "canJumpToThe", "not", "left", 
 			"right", "around", "north", "south", "east", "west", "balloons", "chips", "front", "back"}  // keywords  y the language is not case sensitive use only ;oercase letters:
-	allSymbols := {'[', ']', ',', ':', ';', '|'}  // Symbols  and brackets, both single char and  multicharacter
+	allSymbols := {"[", "]", ",", ":", ";", "|"}  // Symbols  and brackets, both single char and  multicharacter
 	
 	// TRANSLATION FOR ALL STRINGS IN KEYWORDS
 	

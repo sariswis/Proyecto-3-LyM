@@ -83,7 +83,7 @@ public final class ParserRobot202310 {
       $line=14;
       Object SkipChars=$fix(GCollections.asSet(' ','\r','\t','\n','\f'));
       $line=18;
-      $invokeMethod("ignore",((gold.structures.automaton.GPushdownAutomaton)M).delta(0,1,$cast(java.lang.String.class,'M')),new Object[]{});
+      $invokeMethod("ignore",((gold.structures.automaton.GPushdownAutomaton)M).delta(0,1,$cast(java.lang.String.class,'o')),new Object[]{});
       $line=19;
       $invokeMethod("ignore",((gold.structures.automaton.GPushdownAutomaton)M).delta(1,2,$cast(java.lang.String.class,':')),new Object[]{});
       $line=20;

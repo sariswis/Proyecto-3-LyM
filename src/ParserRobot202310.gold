@@ -15,7 +15,7 @@ function createParser(A):IPushdownAutomaton begin
 	
 	// transitions for  moveToThe:  var, right 
 	
-	M.delta(0,1,'M').ignore()
+	M.delta(0,1,'o').ignore()
 	M.delta(1,2,':').ignore()
 	M.delta(2,3,'v').ignore()
 	M.delta(3,4,',').ignore()
