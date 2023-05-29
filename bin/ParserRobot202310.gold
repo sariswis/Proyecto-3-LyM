@@ -5,41 +5,98 @@ toSet(C) :=  {x|  x in C}
 ///====   mini Parser===
 
 function createParser(A):IPushdownAutomaton begin
-	Q:= (0‥8)
+	Q:= (0‥50)
 	Σ:= toSet(A) ∪ {' ', '\r', '\t', '\n', '\f'}
 	Γ:= {'1'}
 	q₀:= 0
-	F:= {0}
+	F:= {1,3,4,7}
 	M:=GPushdownAutomaton(Q,Σ,Γ,q₀,F)
 	SkipChars := {' ', '\r', '\t', '\n', '\f'}   // this will only  be used when testing only the parser as the lexer removes  SkipChars
 	
-	// transitions for  moveToThe:  var, right 
+	// Start
 	
-	M.delta(0,1,'o').ignore()
-	M.delta(1,2,':').ignore()
-	M.delta(2,3,'v').ignore()
-	M.delta(3,4,',').ignore()
-	M.delta(4,0,'r').ignore()
-	 
-	 // transitions for  move:  number
-	M.delta(0,5,'m').ignore()
-	M.delta(5,6,':').ignore()
-	M.delta(6,0,'#').ignore()
+	M.delta(0,6,"R").ignore()
 	
-	// transitions for  face:  north
-	 
-	M.delta(0,7,'f').ignore()
-	M.delta(7,8,':').ignore()
-	M.delta(8,0,'n').ignore() 
+	M.delta(6,7,"Vv").ignore()
+	M.delta(7,8,",").ignore()
+	M.delta(8,8,"v,").ignore()
+	M.delta(8,7,"v").ignore()
 	
+	
+	
+	// Commands
+	
+	M.delta(0,1,"a:#,v").ignore() //  assignTo: n , name
+	
+	M.delta(0,1,"g:v,v").ignore() //  goTo: x, y
+	M.delta(0,1,"g:#,v").ignore() 
+	M.delta(0,1,"g:v,#").ignore() 
+	M.delta(0,1,"g:#,#").ignore()
+	
+	M.delta(0,1,"m:#").ignore() // move: n
+	M.delta(0,1,"m:v").ignore()
+	
+	M.delta(0,1,"t:L").ignore() // turn: D
+	M.delta(0,1,"t:U").ignore()
+	
+	M.delta(0,1,"f:O").ignore() // face: O
+	
+	M.delta(0,1,"p:#,X").ignore() //  put: n , X; pick: n , X
+	M.delta(0,1,"p:v,X").ignore() 
+	
+	M.delta(0,1, "o:#,L").ignore() // moveToThe: n, D; jumpToThe: n, D  
+	M.delta(0,1, "o:#,c").ignore()
+	M.delta(0,1, "o:v,L").ignore()
+	M.delta(0,1, "o:v,c").ignore()
+	
+	M.delta(0,1, "i:#,O").ignore() // moveInDir: n, O; jumpInDir: n, O
+	M.delta(0,1, "i:v,O").ignore()
+	
+	M.delta(0,1, "n:").ignore() // nop:
+	
+	M.delta(1,0,';').ignore() // Out
+	
+	// Procedure call
+	
+	M.delta(0,4,"v:").ignore()
+	M.delta(0,4,"v:#").ignore()
+	M.delta(0,4,"v:v").ignore()
+	
+	M.delta(4,5,",").ignore()
+	M.delta(5,5,"v,").ignore()
+	M.delta(5,5,"#,").ignore()
+	
+	M.delta(5,4,"v").ignore()
+	M.delta(5,4,"#").ignore()
+	M.delta(4,0,';').ignore() // Out
+	
+	// Control Structure
+	
+	
+	
+	// Conditions
+	
+	M.delta(2,3, "c:O").ignore() // facing: O
+	
+	M.delta(2,3,"u:#,X").ignore() //  canPut: n , X;  canPick: n , X
+	M.delta(2,3,"u:v,X").ignore() 
+	
+	M.delta(2,3, "r:#,O").ignore() // canMoveInDir: n, O; canJumpInDir: n, O 
+	M.delta(2,3, "r:v,O").ignore()
+	
+	M.delta(2,3, "h:#,L").ignore() // canMoveToThe: n, D; canJumpToThe: n, D 
+	M.delta(2,3, "h:#,c").ignore()
+	M.delta(2,3, "h:v,L").ignore()
+	M.delta(2,3, "h:v,c").ignore()
+	
+	M.delta(2,2, "!:").ignore() // not:
 	
 	 for each q in Q do
 	 	for each s in SkipChars do
 	 	   M.delta(q,q,λ+s).ignore()
 	 end
 	 end
-	
-
+	 
 	return M
 end
 

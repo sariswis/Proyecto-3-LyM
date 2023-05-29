@@ -226,11 +226,11 @@ skipChars := {' ', '\r', '\t', '\n', '\f'}
 	translation.put("turn",'t')
 	translation.put("face",'f')
 	translation.put("put",'p')
-	translation.put("pick",'i')
+	translation.put("pick",'p')
 	translation.put("moveToThe",'o')
-	translation.put("moveInDir",'b')
-	translation.put("jumpToThe",'j')
-	translation.put("jumpInDir",'d')
+	translation.put("jumpToThe",'o')
+	translation.put("moveInDir",'i')
+	translation.put("jumpInDir",'i')
 	translation.put("nop",'n')
 	
 	// Control Structures
@@ -244,11 +244,11 @@ skipChars := {' ', '\r', '\t', '\n', '\f'}
 	// Conditions
 	translation.put("facing",'c')
 	translation.put("canPut",'u')
-	translation.put("canPick",'k')	
-	translation.put("canMoveInDir",'e')
+	translation.put("canPick",'u')	
+	translation.put("canMoveInDir",'r')
 	translation.put("canJumpInDir",'r')
 	translation.put("canMoveToThe",'h')		
-	translation.put("canJumpToThe",'l')
+	translation.put("canJumpToThe",'h')
 	translation.put("not",'!')
 	
 	// Variables
