@@ -5,11 +5,11 @@ toSet(C) :=  {x|  x in C}
 ///====   mini Parser===
 
 function createParser(A):IPushdownAutomaton begin
-	Q:= (0‥17)
+	Q:= (0‥27)
 	Σ:= toSet(A) ∪ {' ', '\n'}
 	Γ:= {'1'}
 	q₀:= 0
-	F:= {11,13,14,16}
+	F:= {11,13,14,15,16,21,23,24}
 	M:=GPushdownAutomaton(Q,Σ,Γ,q₀,F)
 	SkipChars := {' ', '\n'}   // this will only  be used when testing only the parser as the lexer removes  SkipChars
 	
@@ -42,6 +42,8 @@ function createParser(A):IPushdownAutomaton begin
 	M.delta(10,11,"]").ignore()
 	
 	// Commands
+	
+	M.delta(0,12,λ).ignore() // Out
 	
 	M.delta(12,13,"a:#,v").ignore() //  assignTo: n , name
 	
@@ -90,25 +92,34 @@ function createParser(A):IPushdownAutomaton begin
 	
 	// Conditions
 	
-	M.delta(15,16, "c:O").ignore() // facing: O
+	M.delta(17,18, "c:O").ignore() // facing: O
 	
-	M.delta(15,16,"u:#,X").ignore() //  canPut: n , X;  canPick: n , X
-	M.delta(15,16,"u:v,X").ignore() 
+	M.delta(17,18,"u:#,X").ignore() //  canPut: n , X;  canPick: n , X
+	M.delta(17,18,"u:v,X").ignore() 
 	
-	M.delta(15,16,"r:#,O").ignore() // canMoveInDir: n, O; canJumpInDir: n, O 
-	M.delta(15,16,"r:v,O").ignore()
+	M.delta(17,18,"r:#,O").ignore() // canMoveInDir: n, O; canJumpInDir: n, O 
+	M.delta(17,18,"r:v,O").ignore()
 	
-	M.delta(15,16,"h:#,L").ignore() // canMoveToThe: n, D; canJumpToThe: n, D 
-	M.delta(15,16,"h:#,c").ignore()
-	M.delta(15,16,"h:v,L").ignore()
-	M.delta(15,16,"h:v,c").ignore()
+	M.delta(17,18,"h:#,L").ignore() // canMoveToThe: n, D; canJumpToThe: n, D 
+	M.delta(17,18,"h:#,c").ignore()
+	M.delta(17,18,"h:v,L").ignore()
+	M.delta(17,18,"h:v,c").ignore()
 	
-	M.delta(15,15, "!:").ignore() // not:
+	M.delta(17,17, "!:").ignore() // not:
 	
 	// Control Structure
 	
+	M.delta(12,19,"I").ignore() // If: con then: [ins] else: [ins]
+	M.delta(19,17,":").ignore()
+	M.delta(18,20,"T:").ignore()
+	M.delta(18,21,"E:").ignore()
 	
+	M.delta(12,22,"W").ignore() // while: con do: [ins]
+	M.delta(22,17,":").ignore()
+	M.delta(18,23,"D:").ignore()
 	
+	M.delta(12,24,"A:#").ignore() // repeat: n [ins]
+	M.delta(12,24,"A:v").ignore()
 
 	 for each q in Q do
 	 	for each s in SkipChars do
