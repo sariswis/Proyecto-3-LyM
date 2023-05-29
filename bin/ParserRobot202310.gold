@@ -9,7 +9,7 @@ function createParser(A):IPushdownAutomaton begin
 	Σ:= toSet(A) ∪ {' ', '\n'}
 	Γ:= {'1'}
 	q₀:= 0
-	F:= {11,13,14,15,16,21,23,24}
+	F:= {11}
 	M:=GPushdownAutomaton(Q,Σ,Γ,q₀,F)
 	SkipChars := {' ', '\n'}   // this will only  be used when testing only the parser as the lexer removes  SkipChars
 	
@@ -17,33 +17,52 @@ function createParser(A):IPushdownAutomaton begin
 	
 	M.delta(0,1,"R").ignore() // ROBOT_R
 	
+	// Vars
+	
 	M.delta(1,2,"Vv").ignore() // ROBOT_R -> VARS
 	M.delta(2,3,",").ignore()
 	M.delta(3,3,"v,").ignore()
 	M.delta(3,2,"v").ignore()
 	
-	M.delta(2,4,"P").ignore() // VARS -> PROCS
-	M.delta(2,10,"[").ignore() // VARS -> BLOCK
+	M.delta(2,4,";P").ignore() // VARS -> PROCS
+	M.delta(2,10,";[").push("1") // VARS -> BLOCK
+	
+	// Procs
 	
 	M.delta(1,4,"P").ignore() // ROBOT_R -> PROCS
-	M.delta(4,5,"v[|").ignore()
+	M.delta(4,5,"v[|").push("1")
 	
 	M.delta(5,6,"v").ignore()
 	M.delta(6,8,"|").ignore()
 	M.delta(6,7,",").ignore()
 	M.delta(7,7,"v,").ignore()
 	M.delta(7,5,"v").ignore()
-	
 	M.delta(5,8,"|").ignore()
-	M.delta(8,9,"]").ignore()
-	M.delta(9,10,"[").ignore() // PROCS -> BLOCK
+	M.delta(8,12,λ).ignore()
 	
-	M.delta(1,10,"[").ignore() // ROBOT_R -> BLOCK
-	M.delta(10,11,"]").ignore()
+	M.delta(13,9,"]").pop("1")
+	M.delta(14,9,"]").pop("1")
+	M.delta(15,9,"]").pop("1")
+	M.delta(22,9,"]").pop("1")
+	M.delta(25,9,"]").pop("1")
+	M.delta(27,9,"]").pop("1")
+	M.delta(9,5,"v[|").push("1")
+	
+	M.delta(9,10,"[").push("1") // PROCS -> BLOCK
+	
+	// Final Block
+	
+	M.delta(1,10,"[").push("1") // ROBOT_R -> BLOCK
+	M.delta(10,12,λ).ignore()
+	
+	M.delta(13,11,"]").pop("1")
+	M.delta(14,11,"]").pop("1")
+	M.delta(15,11,"]").pop("1")
+	M.delta(22,11,"]").pop("1")
+	M.delta(25,11,"]").pop("1")
+	M.delta(27,11,"]").pop("1")
 	
 	// Commands
-	
-	M.delta(0,12,λ).ignore() // Out
 	
 	M.delta(12,13,"a:#,v").ignore() //  assignTo: n , name
 	
@@ -80,7 +99,7 @@ function createParser(A):IPushdownAutomaton begin
 	M.delta(12,14,"v:").ignore()
 	M.delta(14,15,"#").ignore()
 	M.delta(14,15,"v").ignore()
-	M.delta(15,12,';').ignore()
+	M.delta(15,12,';').ignore() // Out
 	
 	M.delta(15,16,",").ignore()
 	M.delta(16,16,"v,").ignore()
@@ -109,17 +128,55 @@ function createParser(A):IPushdownAutomaton begin
 	
 	// Control Structure
 	
-	M.delta(12,19,"I").ignore() // If: con then: [ins] else: [ins]
+	M.delta(12,19,"I").push("1") // If: con then: [ins] else: [ins]
 	M.delta(19,17,":").ignore()
 	M.delta(18,20,"T:").ignore()
-	M.delta(18,21,"E:").ignore()
+	M.delta(20,12,"[").ignore()
 	
-	M.delta(12,22,"W").ignore() // while: con do: [ins]
-	M.delta(22,17,":").ignore()
-	M.delta(18,23,"D:").ignore()
+	M.delta(13,21,"]E:").ignore()
+	M.delta(14,21,"]E:").ignore()
+	M.delta(15,21,"]E:").ignore()
+	M.delta(22,21,"]E:").ignore()
+	M.delta(25,21,"]E:").ignore()
+	M.delta(27,21,"]").pop("1")
 	
-	M.delta(12,24,"A:#").ignore() // repeat: n [ins]
-	M.delta(12,24,"A:v").ignore()
+	M.delta(21,12,"[").ignore()
+	
+	M.delta(13,22,"]").pop("1")
+	M.delta(14,22,"]").pop("1")
+	M.delta(15,22,"]").pop("1")
+	M.delta(22,22,"]").pop("1")
+	M.delta(25,22,"]").pop("1")
+	M.delta(27,22,"]").pop("1")
+	
+	M.delta(22,12,';').ignore() // Out
+	
+	M.delta(12,23,"W").push("1") // while: con do: [ins]
+	M.delta(23,17,":").ignore()
+	M.delta(18,24,"D:").ignore()
+	M.delta(24,12,"[").ignore()
+	
+	M.delta(13,25,"]").pop("1")
+	M.delta(14,25,"]").pop("1")
+	M.delta(15,25,"]").pop("1")
+	M.delta(22,25,"]").pop("1")
+	M.delta(25,25,"]").pop("1")
+	M.delta(27,25,"]").pop("1")
+	
+	M.delta(25,12,';').ignore() // Out
+	
+	M.delta(12,26,"A:#").push("1") // repeat: n [ins]
+	M.delta(12,26,"A:v").push("1")
+	M.delta(26,12,"[").ignore()
+	
+	M.delta(13,27,"]").pop("1")
+	M.delta(14,27,"]").pop("1")
+	M.delta(15,27,"]").pop("1")
+	M.delta(22,27,"]").pop("1")
+	M.delta(25,27,"]").pop("1")
+	M.delta(27,27,"]").pop("1")
+	
+	M.delta(27,12,';').ignore() // Out
 
 	 for each q in Q do
 	 	for each s in SkipChars do

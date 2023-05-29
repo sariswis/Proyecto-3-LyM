@@ -15,7 +15,7 @@ procedure main(args:String[]) begin
     parser = ParserRobot202310.createParser(lexer.getOutputAlphabet())
 	 
 	//testLexer(lexer)
-	GAutomataFrame.show(parser)
+	//GAutomataFrame.show(parser)
    
 	testLexerParser(lexer,parser)
 end

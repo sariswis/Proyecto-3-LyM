@@ -198,15 +198,15 @@ end
  
  procedure initialize() begin
 skipChars := {' ', '\r', '\t', '\n', '\f'}
-	alphaUpper := ('A'‥'Z')
+	alphaUpper := ('A'‥'Z') 
 	alphaLower := ('a' ‥ 'z') 
 	digits :=  ('0'‥'9')
-	alphaNum := alphaUpper ∪ alphaLower ∪ digits ∪ {'-'} // Alphanumeric characters
+	alphaNum := alphaUpper ∪ alphaLower ∪ digits ∪ {'_'} // Alphanumeric characters
 	keyWords := {"ROBOT_R", "VARS", "PROCS", "assignTo", "goTo", "move", "turn", "face", "put", "pick", "moveToThe",
 			"moveInDir", "jumpToThe", "jumpInDir", "nop", "if", "then", "else", "while", "do", "repeat", "facing",
 			"canPut", "canPick", "canMoveInDir", "canJumpInDir", "canMoveToThe", "canJumpToThe", "not", "left", 
 			"right", "around", "north", "south", "east", "west", "balloons", "chips", "front", "back"}  // keywords  y the language is not case sensitive use only ;oercase letters:
-	allSymbols := {"[", "]", ",", ":", ";", "|"}  // Symbols  and brackets, both single char and  multicharacter
+	allSymbols := {"[", "]", ",", ":", ";", "|"} // Symbols  and brackets, both single char and  multicharacter
 	
 	// TRANSLATION FOR ALL STRINGS IN KEYWORDS
 	
