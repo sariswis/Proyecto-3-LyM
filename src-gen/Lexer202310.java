@@ -270,7 +270,7 @@ public final class Lexer202310 {
     $try:try {
       gold.structures.set.ISet $v5=$newSet(GCollections.emptySet());
       $v6:for (Object s:GCollections.unmodifiableCollection(strings)) {
-        $v5.union(GCollections.unmodifiableSet(((java.lang.Iterable)(Lexer202310.chars(s)))));
+        $v5.union(GCollections.unmodifiableSet(((java.lang.Iterable)($invokeMethod(Lexer202310.class,"chars",true,null,new Object[]{s})))));
       }
       $result=$v5;
       if (true) break $try;
@@ -348,7 +348,7 @@ public final class Lexer202310 {
     $try:try {
       gold.structures.set.ISet $v19=$newSet(GCollections.emptySet());
       $v20:for (Object s:GCollections.unmodifiableCollection(strings)) {
-        $v19.union(GCollections.unmodifiableSet(((java.lang.Iterable)(Lexer202310.prefixes(s)))));
+        $v19.union(GCollections.unmodifiableSet(((java.lang.Iterable)($invokeMethod(Lexer202310.class,"prefixes",true,null,new Object[]{s})))));
       }
       $result=$v19;
       if (true) break $try;
@@ -414,12 +414,12 @@ public final class Lexer202310 {
         }
         else {
           $line=54;
-          for (Object $v21:GCollections.unmodifiableCollection(Lexer202310.splits(q))) {
+          for (Object $v21:GCollections.unmodifiableCollection($invokeMethod(Lexer202310.class,"splits",true,null,new Object[]{q}))) {
             java.util.Iterator $v22=GCollections.unmodifiableCollection($v21).iterator();
             Object s=$v22.next();
             Object t=$v22.next();
             $line=55;
-            if ((!$bool(Lexer202310.problems($cast(java.lang.String.class,s)))&&!$bool(Lexer202310.problems($cast(java.lang.String.class,t))))) {
+            if ((!$bool($invokeMethod(Lexer202310.class,"problems",true,null,new Object[]{s}))&&!$bool($invokeMethod(Lexer202310.class,"problems",true,null,new Object[]{t})))) {
               $line=55;
               $result=false;
               if (true) break $try;
@@ -464,7 +464,7 @@ public final class Lexer202310 {
           $line=68;
           ((gold.structures.list.GArrayList)images).add(q);
           $line=69;
-          $result=Lexer202310.translationGet(q);
+          $result=$invokeMethod(Lexer202310.class,"translationGet",true,null,new Object[]{q});
           if (true) break $try;
         }
         else {
@@ -476,14 +476,14 @@ public final class Lexer202310 {
           }
           else {
             $line=72;
-            for (Object $v23:GCollections.unmodifiableCollection(Lexer202310.splits(q))) {
+            for (Object $v23:GCollections.unmodifiableCollection($invokeMethod(Lexer202310.class,"splits",true,null,new Object[]{q}))) {
               java.util.Iterator $v24=GCollections.unmodifiableCollection($v23).iterator();
               Object s=$v24.next();
               Object t=$v24.next();
               $line=73;
-              x=$fix(Lexer202310.translationPreOps(s));
+              x=$fix($invokeMethod(Lexer202310.class,"translationPreOps",true,null,new Object[]{s}));
               $line=74;
-              y=$fix(Lexer202310.translationPreOps(t));
+              y=$fix($invokeMethod(Lexer202310.class,"translationPreOps",true,null,new Object[]{t}));
               $line=75;
               if ((!$opEqualY(x,"")&&!$opEqualY(y,""))) {
                 $line=76;
@@ -510,11 +510,11 @@ public final class Lexer202310 {
     Object $result=null;
     $try:try {
       $line=83;
-      Lexer202310.initialize();
+      $invokeMethod(Lexer202310.class,"initialize",true,null,new Object[]{});
       $line=85;
-      preOps=$cast(ISet.class,$fix(Lexer202310.allPrefixes(allSymbols)));
+      preOps=$cast(ISet.class,$fix($invokeMethod(Lexer202310.class,"allPrefixes",true,null,new Object[]{allSymbols})));
       $line=86;
-      preKW=$cast(ISet.class,$fix(Lexer202310.allPrefixes(keyWords)));
+      preKW=$cast(ISet.class,$fix($invokeMethod(Lexer202310.class,"allPrefixes",true,null,new Object[]{keyWords})));
       $line=87;
       gold.structures.set.ISet $v25=$newSet(GCollections.emptySet());
       $v26:for (Object x:GCollections.unmodifiableCollection(allSymbols)) {
@@ -548,7 +548,7 @@ public final class Lexer202310 {
       $line=97;
       System.out.println($message(new Object[]{Q}));
       $line=99;
-      Object \u03A3=$fix($opUnionY($opUnionY($opUnionY(alphaNum,Lexer202310.charsStrings(allSymbols)),skipChars),GCollections.asSet(':','-')));
+      Object \u03A3=$fix($opUnionY($opUnionY($opUnionY(alphaNum,$invokeMethod(Lexer202310.class,"charsStrings",true,null,new Object[]{allSymbols})),skipChars),GCollections.asSet(':','-')));
       $line=102;
       Object q_0=$fix("INIT");
       $line=103;
@@ -590,7 +590,7 @@ public final class Lexer202310 {
           }
           else {
             $line=114;
-            if ($bool(Lexer202310.problems($cast(java.lang.String.class,q)))) {
+            if ($bool($invokeMethod(Lexer202310.class,"problems",true,null,new Object[]{q}))) {
               $line=114;
               $result="Err";
               if (true) break $try;
@@ -825,7 +825,7 @@ public final class Lexer202310 {
           $line=154;
           currentString=$cast(String.class,$fix(""));
           $line=155;
-          $result=Lexer202310.translationGet(q);
+          $result=$invokeMethod(Lexer202310.class,"translationGet",true,null,new Object[]{q});
           if (true) break $try;
         }
         else {
@@ -845,7 +845,7 @@ public final class Lexer202310 {
               $line=161;
               currentString=$cast(String.class,$fix($opAdditY("",s)));
               $line=162;
-              $result=Lexer202310.translationGet(q);
+              $result=$invokeMethod(Lexer202310.class,"translationGet",true,null,new Object[]{q});
               if (true) break $try;
             }
             else {
@@ -854,7 +854,7 @@ public final class Lexer202310 {
                 $line=164;
                 currentString=$cast(String.class,$fix($opAdditY("",s)));
                 $line=165;
-                $result=Lexer202310.translationPreOps(q);
+                $result=$invokeMethod(Lexer202310.class,"translationPreOps",true,null,new Object[]{q});
                 if (true) break $try;
               }
               else {
@@ -881,7 +881,7 @@ public final class Lexer202310 {
           }
           else {
             $line=176;
-            if ($opEqualY(Lexer202310.translationGet(q),null)) {
+            if ($opEqualY($invokeMethod(Lexer202310.class,"translationGet",true,null,new Object[]{q}),null)) {
               $line=178;
               ((gold.structures.list.GArrayList)images).add(currentString);
               $line=179;
@@ -891,14 +891,14 @@ public final class Lexer202310 {
               $line=181;
               if ($opMembrY(f,alphaUpper)) {
                 $line=181;
-                $result=Lexer202310.translationGet("IdU");
+                $result=$invokeMethod(Lexer202310.class,"translationGet",true,null,new Object[]{"IdU"});
                 if (true) break $try;
               }
               else {
                 $line=182;
                 if ($opMembrY(f,alphaLower)) {
                   $line=183;
-                  $result=Lexer202310.translationGet("IdL");
+                  $result=$invokeMethod(Lexer202310.class,"translationGet",true,null,new Object[]{"IdL"});
                   if (true) break $try;
                 }
                 else {
@@ -914,7 +914,7 @@ public final class Lexer202310 {
               $line=188;
               currentString=$cast(String.class,$fix((($bool($opMembrY(\u03C3,$opUnionY(skipChars,StartOps))))?(s):(""))));
               $line=189;
-              $result=Lexer202310.translationGet(q);
+              $result=$invokeMethod(Lexer202310.class,"translationGet",true,null,new Object[]{q});
               if (true) break $try;
             }
           }
